@@ -12,6 +12,7 @@ public class Ejercicio1 {
         llenarDatos(codigo, notas, nombres);
         mostrarDatos(codigo,nombres,notas);
         ordenamientoPorSeleccion(codigo, nombres,notas);
+        ordenamientoPorNota(codigo,nombres,notas);
         System.out.println("Organizado por codigo");
         mostrarDatos(codigo,nombres,notas);
 
@@ -60,7 +61,29 @@ public class Ejercicio1 {
         }
     }
 
+    public static void ordenamientoPorNota(int[] codigo, String[] nombre, double[][] notas){
+        int n = notas.length;
+        for (int i = 0; i < n; i++) {
+            int indiceMinimo = i;
+            for (int j = i + 1; j < n; j++) {
+                if (notas[j][3] > notas[indiceMinimo][j]) {
+                    indiceMinimo = j;
+                }
+            }
+            int tempC = codigo[i];
+            String tempN = nombre[i];
+            double[] tempNotas = notas[i];
 
+            codigo[i] = codigo[indiceMinimo];
+            nombre[i] = nombre[indiceMinimo];
+            notas[i] = notas[indiceMinimo];
+
+            codigo[indiceMinimo] = tempC;
+            nombre[indiceMinimo] = tempN;
+            notas[indiceMinimo] = tempNotas;
+        }
+
+    }
 
     public static String busquedaBinaria(int[] codigo, String[] nombre, double[][] notas, int objetivo) {
         int izquierda = 0;
@@ -92,13 +115,12 @@ public class Ejercicio1 {
         System.out.printf("%-10s %-15s %-20s%n", "Código", "Nombre", "Notas");
 
         for (int i = 0; i < codigo.length; i++) {
-            // Convertimos las notas de cada estudiante a una cadena para mostrar
             StringBuilder notasStr = new StringBuilder();
             for (double nota : notas[i]) {
                 notasStr.append(String.format("%.2f ", nota));
             }
 
-            // Imprimimos cada fila
+
             System.out.printf("%-10d %-15s %-20s%n", codigo[i], nombre[i], notasStr.toString().trim());
         }
     }

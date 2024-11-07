@@ -26,22 +26,17 @@ public class Ejercicio2 {
 
     }
 
-    public static void llenarDatos(int[] codigo, long[][] notas, String[] nombre) {
+    public static void llenarDatos(int[] codigo, long[][] sueldo, String[] nombre) {
         for (int i = 0; i < 4; i++) {
             codigo[i] = (int) (Math.random() * 1999 +1000 );
             nombre[i] = "empleado" + (i + 1);
-            // Generar valor aleatorio para la columna 0
-            notas[i][0] = (long) (Math.random() * 200000 + 100000);
-
-            // Generar valor aleatorio menor que el valor de la columna 0 para la columna 1
-            notas[i][1] = (long) (Math.random() * notas[i][0]);
-
-            // Calcular el valor de la columna 2 como la diferencia entre columna 0 y columna 1
-            notas[i][2] = notas[i][0] - notas[i][1];
+            sueldo[i][0] = (long) (Math.random() * 200000 + 100000);
+            sueldo[i][1] = (long) (Math.random() * sueldo[i][0]);
+            sueldo[i][2] = sueldo[i][0] - sueldo[i][1];
         }
-        }
+    }
 
-    public static void ordenamientoPorSeleccion(int[] codigo, String[] nombre, long[][] notas) {
+    public static void ordenamientoPorSeleccion(int[] codigo, String[] nombre, long[][] sueldo) {
         int n = codigo.length;
         for (int i = 0; i < n; i++) {
             int indiceMinimo = i;
@@ -52,15 +47,15 @@ public class Ejercicio2 {
             }
             int tempC = codigo[i];
             String tempN = nombre[i];
-            long[] tempNotas = notas[i];
+            long[] tempNotas = sueldo[i];
 
             codigo[i] = codigo[indiceMinimo];
             nombre[i] = nombre[indiceMinimo];
-            notas[i] = notas[indiceMinimo];
+            sueldo[i] = sueldo[indiceMinimo];
 
             codigo[indiceMinimo] = tempC;
             nombre[indiceMinimo] = tempN;
-            notas[indiceMinimo] = tempNotas;
+            sueldo[indiceMinimo] = tempNotas;
         }
     }
 
@@ -74,13 +69,10 @@ public class Ejercicio2 {
             int medio = izquierda + (derecha - izquierda) / 2;
 
             if (codigo[medio] == objetivo) {
-                // Convertimos los valores de sueldo a una cadena para mostrar
                 StringBuilder sueldoStr = new StringBuilder();
                 for (long sueldito : sueldo[medio]) {
                     sueldoStr.append(sueldito).append(" ");
                 }
-
-                // Retornamos el código, nombre y sueldo en una cadena formateada
                 return String.format("Código: %d, Nombre: %s, Sueldo: %s",
                         codigo[medio], nombre[medio], sueldoStr.toString().trim());
             }
@@ -101,13 +93,11 @@ public class Ejercicio2 {
         System.out.printf("%-10s %-15s %-20s%n", "Código", "Nombre", "Sueldo");
 
         for (int i = 0; i < codigo.length; i++) {
-            // Convertimos los valores de sueldo a una cadena para mostrar
             StringBuilder sueldoStr = new StringBuilder();
             for (long s : sueldo[i]) {
                 sueldoStr.append(String.format("%d ", s));
             }
 
-            // Imprimimos cada fila
             System.out.printf("%-10d %-15s %-20s%n", codigo[i], nombre[i], sueldoStr.toString().trim());
         }
     }
